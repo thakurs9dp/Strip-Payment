@@ -1,0 +1,38 @@
+1. https://docs.stripe.com/libraries/android
+
+Step1 : Choose  -> Mobile payment Elements (This is prebuild PaymentSheet UI)
+
+Step 2. Add Client side SD in Android Studio
+
+// Stripe Android SDK
+implementation 'com.stripe:stripe-android:20.50.1'
+
+
+
+Step 3. Run Post man API Integration
+
+curl https://api.stripe.com/v1/customers \
+  -u sk_test_tR3PYbcVNZZ796tH88S4VQ2u: \
+  -X "POST"
+
+curl https://api.stripe.com/v1/ephemeral_keys \
+  -u sk_test_tR3PYbcVNZZ796tH88S4VQ2u: \
+  -H "Stripe-Version: 2024-06-20" \
+  -X "POST" \
+  -d "customer"="{{CUSTOMER_ID}}" \
+
+curl https://api.stripe.com/v1/payment_intents \
+  -u sk_test_tR3PYbcVNZZ796tH88S4VQ2u: \
+  -X "POST" \
+  -d "customer"="{{CUSTOMER_ID}}" \
+  -d "amount"=1099 \
+  -d "currency"="eur" \
+  # In the latest version of the API, specifying the `automatic_payment_methods` parameter
+  # is optional because Stripe enables its functionality by default.
+  -d "automatic_payment_methods[enabled]"=true \
+
+
+
+  Step 4. Open Dashboard Of Strip Payment - > And Go to Developers Tap
+
+  Publisher Key : pk_test_51KQvbpSH8QaHVy2OpvwqnsTWmG0rIUt2CsJa0PGzFq5ImeltVtdVyXFRgsgq4b976ScZIAjaXhElzvnLGEeD9IDD00Hpw4wkiu
